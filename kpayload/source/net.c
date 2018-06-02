@@ -1,9 +1,11 @@
-/* golden */
-/* 2/1/2018 */
+/* net.c
+ * 2/1/2018 - golden 
+ * 6/1/2018 - ChendoChap updated offsets
+ */
 
 #include "net.h"
 
-// todo: add offsets to magic, or parse sysent table
+// todo: add offsets to magic, or parse sysent table 
 
 int net_errno;
 
@@ -58,7 +60,7 @@ int net_socket(int domain, int type, int protocol) {
 
 	uint64_t kernbase = getkernbase();
 
-	int (*sys_socket)(struct thread * td, struct sys_socket_args * uap) = (void *)(kernbase + 0x3EAC20);
+	int(*sys_socket)(struct thread * td, struct sys_socket_args * uap) = (void *)(kernbase + 0x00318EE0);
 
 	struct thread *td = curthread();
 
@@ -81,7 +83,7 @@ int net_bind(int sockfd, struct sockaddr *addr, int addrlen) {
 
 	uint64_t kernbase = getkernbase();
 
-	int (*sys_bind)(struct thread * td, struct sys_bind_args * uap) = (void *)(kernbase + 0x3EB550);
+	int(*sys_bind)(struct thread * td, struct sys_bind_args * uap) = (void *)(kernbase + 0x00319820);
 
 	struct thread *td = curthread();
 
@@ -103,7 +105,7 @@ int net_listen(int sockfd, int backlog) {
 
 	uint64_t kernbase = getkernbase();
 
-	int (*sys_listen)(struct thread * td, struct sys_listen_args * uap) = (void *)(kernbase + 0x3EB760);
+	int(*sys_listen)(struct thread * td, struct sys_listen_args * uap) = (void *)(kernbase + 0x00319A60);
 
 	struct thread *td = curthread();
 
@@ -125,7 +127,7 @@ int net_accept(int sockfd, struct sockaddr *addr, int *addrlen) {
 
 	uint64_t kernbase = getkernbase();
 
-	int (*sys_accept)(struct thread * td, struct sys_accept_args * uap) = (void *)(kernbase + 0x3EBEC0);
+	int(*sys_accept)(struct thread * td, struct sys_accept_args * uap) = (void *)(kernbase + 0x0031A170);
 
 	struct thread *td = curthread();
 
@@ -148,7 +150,7 @@ int net_recv(int fd, void *buf, uint64_t len) {
 
 	uint64_t kernbase = getkernbase();
 
-	int (*sys_read)(struct thread * td, struct sys_read_args * uap) = (void *)(kernbase + 0x5EC50);
+	int(*sys_read)(struct thread * td, struct sys_read_args * uap) = (void *)(kernbase + 0x00152AB0);
 
 	struct thread *td = curthread();
 
@@ -171,7 +173,7 @@ int net_send(int fd, const void *buf, uint64_t len) {
 
 	uint64_t kernbase = getkernbase();
 
-	int (*sys_write)(struct thread * td, struct sys_write_args * uap) = (void *)(kernbase + 0x5F1A0);
+	int(*sys_write)(struct thread * td, struct sys_write_args * uap) = (void *)(kernbase + 0x00152FC0);
 
 	struct thread *td = curthread();
 
@@ -196,7 +198,7 @@ int net_setsockopt(int s, int level, int optname, const void *optval, uint32_t o
 
 	uint64_t kernbase = getkernbase();
 
-	int (*sys_setsockopt)(struct thread * td, struct sys_setsockopt_args * uap) = (void *)(kernbase + 0x3ED300);
+	int(*sys_setsockopt)(struct thread * td, struct sys_setsockopt_args * uap) = (void *)(kernbase + 0x31B750);
 
 	struct thread *td = curthread();
 
@@ -219,7 +221,7 @@ int net_close(int fd) {
 
 	uint64_t kernbase = getkernbase();
 
-	int (*sys_close)(struct thread * td, struct sys_close_args * uap) = (void *)(kernbase + 0x42AC00);
+	int(*sys_close)(struct thread * td, struct sys_close_args * uap) = (void *)(kernbase + 0x000C0EB0);
 
 	struct thread *td = curthread();
 
