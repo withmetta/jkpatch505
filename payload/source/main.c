@@ -1,5 +1,9 @@
-/* golden */
-/* 1/2/2018 */
+/* main.c
+ * RStock
+ * 
+ * Updated to 5.05 using:
+ * - MiraFW - https://github.com/OpenOrbis/mira-project/blob/master/Firmware/MiraFW/src/mira/boot/patches/patches505.c
+ */
 
 #include "jkpatch.h"
 #include "install.h"
@@ -36,36 +40,29 @@ void jailbreak(struct thread *td, uint64_t kernbase) {
 
 void debug_patches(struct thread *td, uint64_t kernbase) {
 	// sorry... this is very messy!
-	// TODO: label and explain patches
-	*(uint8_t *)(kernbase + 0x1B6D086) |= 0x14;
-	*(uint8_t *)(kernbase + 0x1B6D0A9) |= 0x3;
-	*(uint8_t *)(kernbase + 0x1B6D0AA) |= 0x1;
-	*(uint8_t *)(kernbase + 0x1B6D0C8) |= 0x1;
+	// debug settings patches (Updated for 5.05)
+	*(uint8_t *)(kernbase + 0x1CD0686) |= 0x14;
+	*(uint8_t *)(kernbase + 0x1CD06A9) |= 0x3;
+	*(uint8_t *)(kernbase + 0x1CD06AA) |= 0x1;
+	*(uint8_t *)(kernbase + 0x1CD06C8) |= 0x1;
 
-	// registry patches for extra debug information
-	// fucks with the whole system, patches sceRegMgrGetInt
-	// 405
-	//*(uint32_t *)(kernbase + 0x4CECB7) = 0;
-	//*(uint32_t *)(kernbase + 0x4CFB9B) = 0;
-	// 455
-	//*(uint32_t *)(kernbase + 0x4D70F7) = 0;
-	//*(uint32_t *)(kernbase + 0x4D7F81) = 0;
 
-	// flatz RSA check patch
-	*(uint32_t *)(kernbase + 0x69F4E0) = 0x90C3C031;
-
-	// flatz enable debug rifs
-	*(uint64_t *)(kernbase + 0x62D30D) = 0x3D38EB00000001B8;
-
-	// disable sysdump_perform_dump_on_fatal_trap
-	// will continue execution and give more information on crash, such as rip
-	*(uint8_t *)(kernbase + 0x736250) = 0xC3;
+	// Old. For 4.55
+	// *(uint32_t *)(kernbase + 0x69F4E0) = 0x90C3C031; // flatz RSA check patch
+	// *(uint64_t *)(kernbase + 0x62D30D) = 0x3D38EB00000001B8; // flatz enable debug rifs
+	
+	// Updated for 5.05
+	*(uint8_t *)(kernbase + 0x736250) = 0xC3;		// disable sysdump_perform_dump_on_fatal_trap, will continue execution and give more information on crash, such as rip
+	*(uint32_t *)(kernbase + 0x6A2700) = 0x90C3C031; // flatz disable pfs signature check 5.05
+	*(uint32_t *)(kernbase + 0x64B2B0) = 0x90C301B0; // flatz enable debug RIFs 5.05
+	*(uint32_t *)(kernbase + 0x64B2D0) = 0x90C301B0;
 
 	// patch vm_map_protect check
-	memcpy((void *)(kernbase + 0x396A58), "\x90\x90\x90\x90\x90\x90", 6);
+	memcpy((void *)(kernbase + 0x396A58), "\x90\x90\x90\x90\x90\x90", 6); // TODO Check if needs update for 5.05
 
 	// patch ASLR, thanks 2much4u
-	*(uint16_t *)(kernbase + 0x1BA559) = 0x9090;
+	// KERN_PROCESS_ASLR = 0x1BA559
+	*(uint16_t *)(kernbase + 0x1BA559) = 0x9090; // TODO Check if needs update for 5.05 
 }
 
 void scesbl_patches(struct thread *td, uint64_t kernbase) {
@@ -73,12 +70,12 @@ void scesbl_patches(struct thread *td, uint64_t kernbase) {
 
 	// signed __int64 __fastcall sceSblACMgrGetDeviceAccessType(__int64 a1, __int64 a2, _DWORD *a3)
 	// v6 = *(_QWORD *)(a1 + 0x58);
-	*(uint64_t *)(td_ucred + 0x58) = 0x3801000000000013; // gives access to everything
+	*(uint64_t *)(td_ucred + 0x58) = 0x3801000000000013; // gives access to everything (Did not change from 5.05)
 
 	/*
-	signed __int64 __fastcall sceSblACMgrIsSystemUcred(__int64 a1) {
+	 signed __int64 __fastcall sceSblACMgrIsSystemUcred(__int64 a1) {
 		return (*(_QWORD *)(a1 + 0x60) >> 62) & 1LL;
-	}
+	 }
 	*/
 	*(uint64_t *)(td_ucred + 0x60) = 0xFFFFFFFFFFFFFFFF;
 
@@ -89,8 +86,16 @@ void scesbl_patches(struct thread *td, uint64_t kernbase) {
 	*/
 	*(uint64_t *)(td_ucred + 0x68) = 0xFFFFFFFFFFFFFFFF;
 
-	// sceSblACMgrIsAllowedSystemLevelDebugging
-	*(uint8_t *)(kernbase + 0x36057B) = 0;
+	// Old 4.55: *(uint8_t *)(kernbase + 0x36057B) = 0; // Haven't checked if updated for 5.05 (but if it's like the rest it probably hasn't)
+	// sceSblACMgrIsAllowedSystemLevelDebugging (updated to 5.05 using MiraFW)
+	uint8_t *kmem = (uint8_t *)&kernbase[0x00010FC0];
+	kmem[0] = 0xB8; kmem[1] = 0x01; kmem[2] = 0x00; kmem[3] = 0x00;
+	kmem[4] = 0x00; kmem[5] = 0xC3; kmem[6] = 0x90; kmem[7] = 0x90;
+
+	kmem = (uint8_t *)&kernbase[0x00011756];
+	kmem[0] = 0xB8; kmem[1] = 0x01; kmem[2] = 0x00; kmem[3] = 0x00;
+	kmem[4] = 0x00; kmem[5] = 0xC3; kmem[6] = 0x90; kmem[7] = 0x90;
+	
 }
 
 int receive_payload(void **payload, size_t *psize) {

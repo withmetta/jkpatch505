@@ -4,8 +4,7 @@
 #include "utilities.h"
 
 inline uint64_t getkernbase() {
-	// return __readmsr(0xC0000082) - __Xfast_syscall;
-	return (uint64_t)(&((uint8_t*)__readmsr(0xC0000082))[-0x1C0]); // Kernal base address used in AppToUsb for 50X
+	return __readmsr(0xC0000082) - __Xfast_syscall; // Updated for 5.05 
 }
 
 inline void *alloc(uint32_t size) {
