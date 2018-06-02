@@ -1,3 +1,4 @@
+.vs\
 *.o
 *.bin
 *.elf
@@ -5,3 +6,5 @@
 *.zip
 .vscode
 *.opendb
+.suo
+*.suo
