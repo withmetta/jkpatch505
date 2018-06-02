@@ -1,4 +1,6 @@
 // 06/01/1988 - RStock
+// This is the only thing I've touched so far. Looking to get the rest of the offsets before recompiling.
+// 
 // 
 // To update the offsets I used: 
 // https://github.com/OpenOrbis/oni-framework/blob/4633038397cd524d7e6103a214cbb4935988fe2c/include/oni/utils/kdlsym/orbis505.h
@@ -7,7 +9,7 @@
 // Original file: 
 // https://github.com/xemio/jkpatch/blob/38771ae100afe446bf8622501e01b8f1a958a45e/payload/include/magic.h
 //
-// ref FFFFFFFF8F59C000 (Didn't know how to update this line)
+// ref FFFFFFFF8F59C000 (Didn't know what this comment meant)
 // 
 
 #define __Xfast_syscall							0x1C0  		// Updated using AppToUsb50X 
