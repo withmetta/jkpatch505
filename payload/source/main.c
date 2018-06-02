@@ -162,7 +162,7 @@ int jkpatch(struct thread *td, struct jkuap *uap) {
 	__writecr0(CR0 & ~CR0_WP);
 
 	// enable uart
-	uint8_t *disable_console_output = (uint8_t *)(kernbase + __disable_console_output);
+	uint8_t *disable_console_output = (uint8_t *)(kernbase + __disable_console_output); // Updated for 5.05
 	*disable_console_output = FALSE;
 
 	// real quick jailbreak ;)
