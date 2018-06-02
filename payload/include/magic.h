@@ -18,12 +18,12 @@
 #define __copyin								0x1EA710  	// Updated using fail0verflow 
 #define __copyout								0x1EA630	// Updated using fail0verflow 
 #define __printf								0x436040    // Updated using fail0verflow 
-#define __malloc								0x10E250    // Not in fail0verflow's or fail0verflow's kern_off_kmem_alloc_contig.
+#define __malloc								0x10E250    // Updated using ps4-hen-vtx
 #define __free									0x3F7930    // Updated using ps4-hen-vtx
 #define __memcpy								0x1EA530	// Updated using ps4-hen-vtx
 #define __memset								0x3205C0	// Updated using ps4-hen-vtx
 #define __memcmp								0x050AC0	// Updated using ps4-hen-vtx
-#define __kmem_alloc							0x16ECD0  	// ???
+#define __kmem_alloc							0xfcc80		// Updated via ChendoChap
 #define __strlen                                0x3B71A0	// Updated using ps4-hen-vtx
 
 #define __disable_console_output                0x09ECEB0	// Updated using ExodusSecurity

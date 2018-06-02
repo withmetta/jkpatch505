@@ -19,8 +19,12 @@ int install_payload(struct thread *td, uint64_t kernbase, void *payload, size_t 
 	uint64_t CR0 = __readcr0();
 
 	__writecr0(CR0 & ~CR0_WP); // TODO Check if valid for 5.05
-	*(uint8_t *)(kernbase + 0x16ED8C) = 7; // VM_PROT_ALL;
-	*(uint8_t *)(kernbase + 0x16EDA2) = 7; // VM_PROT_ALL;
+	
+	// Updated for 5.05 (thank you ChendoChap)
+	*(uint8_t *)(kernbase + 0x000FCD48) = 7; // VM_PROT_ALL; 
+	*(uint8_t *)(kernbase + 0x000FCD56) = 7; // VM_PROT_ALL;
+	//*(uint8_t *)(kernbase + 0x16ED8C) = 7; // VM_PROT_ALL;
+	//*(uint8_t *)(kernbase + 0x16EDA2) = 7; // VM_PROT_ALL;
 	__writecr0(CR0);
 
 	void *payloadbase = (void *)kmem_alloc(kernel_map, s);
@@ -31,8 +35,10 @@ int install_payload(struct thread *td, uint64_t kernbase, void *payload, size_t 
 	}
 
 	__writecr0(CR0 & ~CR0_WP);
-	*(uint8_t *)(kernbase + 0x16ED8C) = 3; // VM_PROT_DEFAULT;
-	*(uint8_t *)(kernbase + 0x16EDA2) = 3; // VM_PROT_DEFAULT;
+	*(uint8_t *)(kernbase + 0x000FCD48) = 3; // VM_PROT_ALL; 
+	*(uint8_t *)(kernbase + 0x000FCD56) = 3; // VM_PROT_ALL;
+	// *(uint8_t *)(kernbase + 0x16ED8C) = 3; // VM_PROT_DEFAULT;
+	// *(uint8_t *)(kernbase + 0x16EDA2) = 3; // VM_PROT_DEFAULT;
 	__writecr0(CR0);
 
 	// load the elf

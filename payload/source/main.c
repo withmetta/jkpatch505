@@ -58,7 +58,8 @@ void debug_patches(struct thread *td, uint64_t kernbase) {
 	*(uint32_t *)(kernbase + 0x64B2D0) = 0x90C301B0;
 
 	// patch vm_map_protect check
-	memcpy((void *)(kernbase + 0x396A58), "\x90\x90\x90\x90\x90\x90", 6); // TODO Check if needs update for 5.05
+	memcpy((void *)(kernbase + 0x1A3C08), "\x90\x90\x90\x90\x90\x90", 6); // Updated for 5.05 (thank you ChendoChap)
+	// memcpy((void *)(kernbase + 0x396A58), "\x90\x90\x90\x90\x90\x90", 6); // TODO Check if needs update for 5.05
 
 	// patch ASLR, thanks 2much4u
 	// KERN_PROCESS_ASLR = 0x1BA559
