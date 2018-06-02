@@ -60,6 +60,8 @@ TYPE_END();
 
 #define SIZEOF_SELF_HEADER 0x20
 
+// Need to look SELF_MAGIC, ELF_MAGIC up. Maybe unused? Weird place for the defines
+
 TYPE_BEGIN(struct self_header, SIZEOF_SELF_HEADER);
 TYPE_FIELD(uint32_t magic, 0x00);
 #define SELF_MAGIC 0x1D3D154F

@@ -86,7 +86,7 @@ void scesbl_patches(struct thread *td, uint64_t kernbase) {
 	*/
 	*(uint64_t *)(td_ucred + 0x68) = 0xFFFFFFFFFFFFFFFF;
 
-	// Old 4.55: *(uint8_t *)(kernbase + 0x36057B) = 0; // Haven't checked if updated for 5.05 (but if it's like the rest it probably hasn't)
+	// Old 4.55: *(uint8_t *)(kernbase + 0x36057B) = 0;
 	// sceSblACMgrIsAllowedSystemLevelDebugging (updated to 5.05 using MiraFW)
 	uint8_t *kmem = (uint8_t *)&kernbase[0x00010FC0];
 	kmem[0] = 0xB8; kmem[1] = 0x01; kmem[2] = 0x00; kmem[3] = 0x00;
@@ -94,8 +94,7 @@ void scesbl_patches(struct thread *td, uint64_t kernbase) {
 
 	kmem = (uint8_t *)&kernbase[0x00011756];
 	kmem[0] = 0xB8; kmem[1] = 0x01; kmem[2] = 0x00; kmem[3] = 0x00;
-	kmem[4] = 0x00; kmem[5] = 0xC3; kmem[6] = 0x90; kmem[7] = 0x90;
-	
+	kmem[4] = 0x00; kmem[5] = 0xC3; kmem[6] = 0x90; kmem[7] = 0x90;	
 }
 
 int receive_payload(void **payload, size_t *psize) {
