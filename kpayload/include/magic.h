@@ -5,6 +5,7 @@
  // 4.55
 
  // ref FFFFFFFF8F59C000
+//TODO Update all of these
 
 #define __Xfast_syscall							0x3095D0
 #define __copyin								0x14A890

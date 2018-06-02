@@ -7,18 +7,18 @@
 
 int net_errno;
 
-// specific to 4.55, may change in other updates
+// Updated for 5.05, may change in other updates
 // the kernel functions copyin and copyout check if the src/dst address is in kernel space
 void net_disable_copy_checks() {
 	uint64_t kernbase = getkernbase();
 	uint64_t CR0 = __readcr0();
 
-	uint16_t *copyin1 = (uint16_t *)(kernbase + 0x14A8D8);
-	uint16_t *copyin2 = (uint16_t *)(kernbase + 0x14A8E7);
+	uint16_t *copyin1 = (uint16_t *)(kernbase + 0x1EA758);
+	uint16_t *copyin2 = (uint16_t *)(kernbase + 0x1EA767);
 
-	uint16_t *copyout1 = (uint16_t *)(kernbase + 0x14A7EB);
-	uint16_t *copyout2 = (uint16_t *)(kernbase + 0x14A7F3);
-	uint16_t *copyout3 = (uint16_t *)(kernbase + 0x14A802);
+	uint16_t *copyout1 = (uint16_t *)(kernbase + 0x1EA66B);
+	uint16_t *copyout2 = (uint16_t *)(kernbase + 0x1EA673);
+	uint16_t *copyout3 = (uint16_t *)(kernbase + 0x1EA682);
 
 	__writecr0(CR0 & ~CR0_WP);
 	*copyin1 = 0x9090;
@@ -33,12 +33,12 @@ void net_enable_copy_checks() {
 	uint64_t kernbase = getkernbase();
 	uint64_t CR0 = __readcr0();
 
-	uint16_t *copyin1 = (uint16_t *)(kernbase + 0x14A8D8);
-	uint16_t *copyin2 = (uint16_t *)(kernbase + 0x14A8E7);
+	uint16_t *copyin1 = (uint16_t *)(kernbase + 0x1EA758);
+	uint16_t *copyin2 = (uint16_t *)(kernbase + 0x1EA767);
 
-	uint16_t *copyout1 = (uint16_t *)(kernbase + 0x14A7EB);
-	uint16_t *copyout2 = (uint16_t *)(kernbase + 0x14A7F3);
-	uint16_t *copyout3 = (uint16_t *)(kernbase + 0x14A802);
+	uint16_t *copyout1 = (uint16_t *)(kernbase + 0x1EA66B);
+	uint16_t *copyout2 = (uint16_t *)(kernbase + 0x1EA673);
+	uint16_t *copyout3 = (uint16_t *)(kernbase + 0x1EA682);
 
 	__writecr0(CR0 & ~CR0_WP);
 	*copyin1 = 0x4672;
