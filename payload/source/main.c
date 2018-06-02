@@ -62,7 +62,9 @@ void debug_patches(struct thread *td, uint64_t kernbase) {
 
 	// patch ASLR, thanks 2much4u
 	// KERN_PROCESS_ASLR = 0x1BA559
-	*(uint16_t *)(kernbase + 0x1BA559) = 0x9090; // TODO Check if needs update for 5.05 
+	// Old: *(uint16_t *)(kernbase + 0x1BA559) = 0x9090; 
+	*(uint16_t *)(kernbase + __KERN_PROCESS_ASLR) = 0x9090; // Updated for 5.05 
+
 }
 
 void scesbl_patches(struct thread *td, uint64_t kernbase) {

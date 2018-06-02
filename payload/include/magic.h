@@ -31,3 +31,6 @@
 #define __kernel_map                            0x1AC60E0 	// Updated using fail0verflow 
 #define __prison0                               0x10986A0 	// Updated using AppToUsb50X
 #define __rootvnode                             0x22C1A70 	// Updated using AppToUsb50X
+
+// RStock added
+#define __KERN_PROCESS_ASLR						0x194875	// Thank you kehy!

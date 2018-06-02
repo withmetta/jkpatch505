@@ -18,7 +18,7 @@ int install_payload(struct thread *td, uint64_t kernbase, void *payload, size_t 
 
 	uint64_t CR0 = __readcr0();
 
-	__writecr0(CR0 & ~CR0_WP);
+	__writecr0(CR0 & ~CR0_WP); // TODO Check if valid for 5.05
 	*(uint8_t *)(kernbase + 0x16ED8C) = 7; // VM_PROT_ALL;
 	*(uint8_t *)(kernbase + 0x16EDA2) = 7; // VM_PROT_ALL;
 	__writecr0(CR0);
