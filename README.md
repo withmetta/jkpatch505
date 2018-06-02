@@ -1,3 +1,6 @@
+Trying to update the payload's offsets to 5.05 and set it up to compile under Visual Studio or at least Windows. Leaving the rest of the readme untouched:
+
+
 # Jailbreak Kernel Patches
 
 ### Features
