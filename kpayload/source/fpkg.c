@@ -1,5 +1,14 @@
 /* golden */
-/* 1/2/2018 */
+/* 1/2/2018 
+
+* "vortex not only updated offsets
+* he also simplified pfs functions
+* using less hooks now
+* it's the best to remove HEN for now"
+* - J00ni3	
+* 
+* TODO Remove HEN
+*/
 
 #include "fpkg.h"
 

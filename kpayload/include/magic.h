@@ -1,27 +1,34 @@
-/* golden */
-/* 1/2/2018 */
+// magic.h
+//
+// 1/2/2018 - golden
+// ------------------
+// inspired by fail0verflow, of course
+// 4.55
+//
+// ref FFFFFFFF8F59C000
+//
+// 6/3/2018 - RStock
+// ------------------
+// TODO Update all of these
+// https://github.com/xvortex/ps4-hen-vtx/blob/master/kpayload/include/offsets.h
+// https://github.com/OpenOrbis/oni-framework/blob/4633038397cd524d7e6103a214cbb4935988fe2c/include/oni/utils/kdlsym/orbis505.h
+//
 
- // inspired by fail0verflow, of course
- // 4.55
-
- // ref FFFFFFFF8F59C000
-//TODO Update all of these
-
-#define __Xfast_syscall							0x3095D0
-#define __copyin								0x14A890
-#define __copyout								0x14A7B0
-#define __printf								0x017F30
+#define __Xfast_syscall							0x1C0		// Updated from xvortex 
+#define __copyin								0x1EA710  	// Updated using fail0verflow 
+#define __copyout								0x1EA630	// Updated using fail0verflow 
+#define __printf								0x436040    // Updated using fail0verflow 
 #define __vprintf                               0x017FA0
-#define __malloc								0x3F7750
-#define __free									0x3F7930
-#define __memcpy								0x14A6B0
-#define __memset								0x302BD0
-#define __memcmp								0x242A60
-#define __kmem_alloc							0x16ECD0
-#define __strlen                                0x3514F0
+#define __malloc								0x10E250	// Updated using ps4-hen-vtx
+#define __free									0x3F7930    // Updated using ps4-hen-vtx
+#define __memcpy								0x1EA530	// Updated using ps4-hen-vtx
+#define __memset								0x3205C0	// Updated using ps4-hen-vtx
+#define __memcmp								0x050AC0	// Updated using ps4-hen-vtx
+#define __kmem_alloc							0xFCC80		// Updated via ChendoChap
+#define __strlen                                0x3B71A0	// Updated using ps4-hen-vtx
 #define __pause									0x261120
-#define __kthread_add							0x464C90
-#define __kthread_exit							0x464F60
+#define __kthread_add							0x138360	// Updated using OpenOrbis
+#define __kthread_exit							0x138640	// Updated using OpenOrbis
 #define __sched_prio							0x072410
 #define __sched_add								0x072740
 #define __kern_yield							0x261440
@@ -43,13 +50,13 @@
 #define __fpu_kern_enter						0x059580
 #define __fpu_kern_leave						0x059680
 #define __kern_reboot							0x0998A0
-#define __vm_map_lock_read						0x3920B0
+#define __vm_map_lock_read						0x19f140	// Updated using OpenOrbis
 #define __vm_map_lookup_entry					0x392C70
 #define __vm_map_unlock_read					0x392100
 #define __vmspace_free							0x391D10
 #define __vm_map_delete							0x394790
 #define __vm_map_protect						0x396860
-#define __vmspace_acquire_ref					0x391EE0
+#define __vmspace_acquire_ref					0x19ef90	// Updated using OpenOrbis
 #define __vm_map_findspace						0x394E90
 #define __vm_map_insert							0x392F70
 #define __vm_map_lock							0x391F40
@@ -73,11 +80,11 @@
 #define __RsaesPkcs1v15Enc2048					0x4667D0
 #define __RsaesPkcs1v15Dec2048CRT				0x3EF200
 
-#define __disable_console_output        0x1997BC8
-#define __M_TEMP					   	0x1993B30
-#define __kernel_map                    0x1B31218
-#define __prison0                       0x10399B0
-#define __rootvnode                     0x21AFA30
+#define __disable_console_output                0x09ECEB0	// Updated using ExodusSecurity
+#define __M_TEMP					        	0x14B4110	// Updated using ps4-hen-vtx
+#define __kernel_map                            0x1AC60E0 	// Updated using fail0verflow 
+#define __prison0                               0x10986A0 	// Updated using AppToUsb50X
+#define __rootvnode                             0x22C1A70 	// Updated using AppToUsb50X
 #define __allproc						0x1AD7718
 #define __fpu_kern_ctx					0x251CCC0
 #define __mini_syscore_self_binary 		0x1471468
