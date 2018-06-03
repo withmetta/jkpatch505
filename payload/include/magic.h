@@ -19,7 +19,7 @@
 #define __copyout								0x1EA630	// Updated using fail0verflow 
 #define __printf								0x436040    // Updated using fail0verflow 
 #define __malloc								0x10E250    // Updated using ps4-hen-vtx
-#define __free									0x3F7930    // Updated using ps4-hen-vtx
+#define __free									0x10E460    // You forgot this one!
 #define __memcpy								0x1EA530	// Updated using ps4-hen-vtx
 #define __memset								0x3205C0	// Updated using ps4-hen-vtx
 #define __memcmp								0x050AC0	// Updated using ps4-hen-vtx
