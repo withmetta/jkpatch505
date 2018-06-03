@@ -4,8 +4,8 @@
 #include "jkpayload.h"
 
 #include "rpc.h"
-#include "fself.h"
-#include "fpkg.h"
+//#include "fself.h"
+//#include "fpkg.h"
 
 void hook_trap_fatal(struct trapframe *tf) {
 	// print registers
@@ -48,7 +48,7 @@ void install_trap_hook() {
 
 	// Updated for 5.05 by ChendoChap
 	// TODO Need to understand memory addresses
-	memcpy((void *)(kernbase + 0x1718DB), "\x4C\x89\xE7", 3); // mov rdi, r12
+	memcpy((void *)(kernbase + 0x1718D8), "\x4C\x89\xE7", 3); // mov rdi, r12
 	write_jmp(kernbase + 0x1718DB, (uint64_t)hook_trap_fatal);
 
 	// restore CR0
@@ -66,11 +66,11 @@ int payload_entry(void *arg) {
 	init_rpc();
 
 	// fake self binaries
-	install_fself_hooks();
+	//install_fself_hooks();
 
 	// fake package containers
-	shellcore_fpkg_patch();
-	install_fpkg_hooks();
+	//shellcore_fpkg_patch();
+	//install_fpkg_hooks();
 
 	return 0;
 }
