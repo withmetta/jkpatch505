@@ -7,6 +7,7 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace librpc
 {
@@ -107,7 +108,8 @@ namespace librpc
         /// Initializes PS4RPC class
         /// </summary>
         /// <param name="ip">PlayStation 4 ip address</param>
-        public PS4RPC(string ip)
+		bool Is505;
+        public PS4RPC(string ip, bool is505)
         {
             IPAddress addr = null;
             try
@@ -123,10 +125,15 @@ namespace librpc
             sock = new Socket(enp.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             sock.NoDelay = true;
             sock.ReceiveTimeout = sock.SendTimeout = 5 * 1000;
+			Is505 = is505;
         }
 
-        private static string GetNullTermString(byte[] data, int offset)
-        {
+        private static string GetNullTermString(byte[] data, int offset, bool isRefreshProcessList, bool is505 = false)
+        {if 
+			(isRefreshProcessList && is505)
+            {
+                data = data.Skip(8).ToArray();
+            }
             int length = Array.IndexOf<byte>(data, 0, offset) - offset;
             if (length < 0)
             {
@@ -456,7 +463,7 @@ namespace librpc
             for (int i = 0; i < number; i++)
             {
                 int offset = i * RPC_PROC_LIST_SIZE;
-                procnames[i] = GetNullTermString(data, offset);
+                procnames[i] = GetNullTermString(data, offset, true, Is505);
                 pids[i] = BitConverter.ToInt32(data, offset + 32);
             }
 
@@ -499,7 +506,7 @@ namespace librpc
                 int offset = i * RPC_PROC_INFO2_SIZE;
                 entries[i] = new MemoryEntry();
 
-                entries[i].name = GetNullTermString(data, offset);
+                entries[i].name = GetNullTermString(data, offset, false);
                 entries[i].start = BitConverter.ToUInt64(data, offset + 32);
                 entries[i].end = BitConverter.ToUInt64(data, offset + 40);
                 entries[i].offset = BitConverter.ToUInt64(data, offset + 48);
