@@ -84,7 +84,7 @@ namespace Example
 
         static void Main(string[] args)
         {
-            PS4RPC ps4 = new PS4RPC("192.168.1.107");
+            PS4RPC ps4 = new PS4RPC("192.168.1.107", true);
             ps4.Connect();
 
             ProcessList pl = ps4.GetProcessList();

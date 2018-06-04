@@ -1,5 +1,6 @@
 Trying to update the payload's offsets to 5.05 and set it up to compile under Visual Studio or at least Windows. Leaving the rest of the readme untouched:
 
+  Use [ps4-payload-sdk](https://github.com/xvortex/ps4-payload-sdk) to compile
 
 # Jailbreak Kernel Patches
 
@@ -11,8 +12,6 @@ Trying to update the payload's offsets to 5.05 and set it up to compile under Vi
 - Enable UART
 - Disable system update messages
 - Delete system updates
-- Fake self support
-- Fake pkg support
 - RPC server
 - RPC client in C#
 
